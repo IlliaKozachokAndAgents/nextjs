@@ -1,6 +1,13 @@
 {
   "dependencies": {
+    "@heroui/button": "^2.2.32",
+    "@heroui/link": "^2.2.26",
+    "@heroui/navbar": "^2.2.30",
+    "@heroui/react": "^3.0.5",
+    "@heroui/system": "^2.4.28",
+    "@heroui/theme": "^2.4.26",
     "@tailwindcss/postcss": "^4.3.0",
+    "framer-motion": "^12.40.0",
     "next": "^16.2.6",
     "postcss": "^8.5.15",
     "react": "^19.2.6",
