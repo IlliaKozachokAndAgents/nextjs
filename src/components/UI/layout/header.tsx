@@ -5,8 +5,11 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { siteConfig } from "../../config/site.config";
-import { layoutConfig } from "../../config/layout.config";
+import { siteConfig } from "../../../config/site.config";
+import { layoutConfig } from "../../../config/layout.config";
+import RegistrationModal from "../modals/registration.modal";
+import LoginModal from "../modals/login.modal";
+import { useState } from "react";
 
 export const Logo = () => {
     return <Image
@@ -45,8 +48,11 @@ export default function Header() {
         })
     }
 
+    const [isLoginOpen, setIsLoginOpen] = useState(false)
+    const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
+    
     return (
-        <Navbar className={`h-[${layoutConfig.headerHeight}]`}>
+        <Navbar style={{height: layoutConfig.headerHeight}}>
             <NavbarBrand>
                 <Link href="/" className="flex gap-1">
                     <Logo />
@@ -58,14 +64,36 @@ export default function Header() {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem className="hidden lg:flex">
-                    <Link href="#">Login</Link>
+                    <Button
+                        as={Link}
+                        href="#"
+                        variant="flat"
+                        onPress={() => {setIsLoginOpen(true)}}
+                    >
+                        Login
+                    </Button>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} color="primary" href="#" variant="flat">
+                    <Button
+                        as={Link}
+                        color="primary"
+                        href="#"
+                        variant="flat"
+                        onPress={() => {setIsRegistrationOpen(true)}}
+                    >
                         Sign Up
                     </Button>
                 </NavbarItem>
             </NavbarContent>
+
+            <RegistrationModal
+                isOpen={isRegistrationOpen}
+                onClose={() => {setIsRegistrationOpen(false)}}
+            />
+            <LoginModal
+                isOpen={isLoginOpen}
+                onClose={() => {setIsLoginOpen(false)}}
+            />
         </Navbar>
     );
 }

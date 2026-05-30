@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css'
 import { Providers } from "./providers";
-import Header from "../components/UI/header"
+import Header from "../components/UI/layout/header"
 import { siteConfig } from '../config/site.config';
 import { layoutConfig } from '../config/layout.config';
 
@@ -20,14 +20,16 @@ export default function RootLayout({
             <body>
                 <Providers>
                     <Header />
-                    <main className={
-                        `flex flex-col 
-                        h-[calc(100vh-${layoutConfig.headerHeight}-${layoutConfig.footerHeight})] 
-                        w-full justify-start items-center`
-                    }>
+                    <main 
+                        className="flex flex-col w-full justify-start items-center"
+                        style={{height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`}}
+                    >
                         {children}
                     </main>
-                    <footer className={`flex h-[${layoutConfig.footerHeight}] justify-center items-center`}>
+                    <footer
+                        className="flex justify-center items-center"
+                        style={{height: layoutConfig.footerHeight}}
+                    >
                         <p>
                             {siteConfig.description}
                         </p>
