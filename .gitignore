@@ -3,3 +3,9 @@ node_modules
 .next
 tmp
 .DS_Store
+.data
+.obsidian
+.env
+.python-version
+
+/src/generated/prisma
