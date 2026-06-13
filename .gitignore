@@ -6,6 +6,7 @@ tmp
 .data
 .obsidian
 .env
+.env.local
 .python-version
 
 /src/generated/prisma
