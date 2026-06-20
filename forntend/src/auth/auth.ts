@@ -6,14 +6,14 @@ import { signInSchema } from "../schema/zod"
 import { saltAndHashPassword } from "@/utils/password"
 import { getUserFromDb } from "@/utils/db"
 
-export const { handlers, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         Credentials({
             // You can specify which fields should be submitted, by adding keys to the `credentials` object.
             // e.g. domain, username, password, 2FA token, etc.
             credentials: {
-                email: {},
-                password: {},
+                email: {label: 'Email', type: 'email'},
+                password: {label: 'Password', type: 'password'},
             },
             authorize: async (credentials) => {
                 try {
