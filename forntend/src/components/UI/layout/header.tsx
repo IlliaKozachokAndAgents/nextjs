@@ -50,6 +50,10 @@ export default function Header() {
 
     const [isLoginOpen, setIsLoginOpen] = useState(false)
     const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
+
+    const handleLogout = async () => {
+
+    }
     
     return (
         <Navbar style={{height: layoutConfig.headerHeight}}>
@@ -63,6 +67,16 @@ export default function Header() {
                 {getNavItems()}
             </NavbarContent>
             <NavbarContent justify="end">
+                <NavbarItem className="hidden lg:flex">
+                    <Button
+                        as={Link}
+                        href="#"
+                        variant="flat"
+                        onPress={handleLogout}
+                    >
+                        Logout
+                    </Button>
+                </NavbarItem>
                 <NavbarItem className="hidden lg:flex">
                     <Button
                         as={Link}
