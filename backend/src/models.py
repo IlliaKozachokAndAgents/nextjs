@@ -11,6 +11,3 @@ class User(SQLModel, table=True):
 
     created_ad: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
-
-class OauthBrearToken(SQLModel, table=True):
-    token: str = Field(primary_key=True)

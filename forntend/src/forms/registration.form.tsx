@@ -23,7 +23,6 @@ const RegistrationForm = ({onClose}: IProps) => {
     };
     const handleSubmit =async (e:React.FormEvent) => {
         e.preventDefault()
-
         const result = await registerUser(formData)
         console.log('Form Submitted! ', result)
 

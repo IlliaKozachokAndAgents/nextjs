@@ -4,7 +4,8 @@ import { Form } from "@heroui/form";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import React, { useState } from "react";
-
+import { loginUser } from "../actions/login";
+import { cookies } from "next/headers";
 
 interface IProps {
     onClose: () => void
@@ -14,12 +15,15 @@ const LoginForm = ({onClose}: IProps) => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        confirmPassword: "",
     })
     const handleSubmit =async (e:React.FormEvent) => {
         e.preventDefault()
-        console.log('Form Submitted! ', formData)
 
+        const cookieStore = await cookies()
+        const token = await loginUser(formData.email, formData.password)
+        cookieStore.set('session', token, {httpOnly: true})
+        
+        console.log('Logged In!')
         onClose()
     }
     return (

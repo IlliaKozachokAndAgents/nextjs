@@ -10,6 +10,9 @@ import { layoutConfig } from "../../../config/layout.config";
 import RegistrationModal from "../modals/registration.modal";
 import LoginModal from "../modals/login.modal";
 import { useState } from "react";
+import { logoutUser } from "../../../actions/logout";
+import { useSession } from "next-auth/react"
+import { authConf } from "../../../config/auth.config";
 
 export const Logo = () => {
     return <Image
@@ -52,7 +55,7 @@ export default function Header() {
     const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
 
     const handleLogout = async () => {
-
+        await logoutUser()
     }
     
     return (
