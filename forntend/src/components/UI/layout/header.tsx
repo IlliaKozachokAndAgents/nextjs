@@ -9,10 +9,10 @@ import { siteConfig } from "../../../config/site.config";
 import { layoutConfig } from "../../../config/layout.config";
 import RegistrationModal from "../modals/registration.modal";
 import LoginModal from "../modals/login.modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logoutUser } from "../../../actions/logout";
-import { useSession } from "next-auth/react"
-import { authConf } from "../../../config/auth.config";
+import { isAuthorize } from "../../../actions/get.auth.status";
+
 
 export const Logo = () => {
     return <Image
@@ -26,6 +26,29 @@ export const Logo = () => {
 
 export default function Header() {
     const pathname = usePathname()
+
+    const [session, setSession] = useState(null);
+    const [status, setStatus] = useState(null);
+
+    useEffect(() => {
+        async function loadUser() {
+            try {
+                var result = await fetch(
+                    'http://127.0.0.1:8000/auth/users/me', { method: "GET", credentials: "include" }
+                )
+                if (result.status == 200) {
+                    setSession(await result.json())
+                    setStatus('Authorized')
+                }
+            } catch (error) {
+            }
+        }
+
+        loadUser()
+    });
+
+    console.log('session', session)
+    console.log('status', session)
 
     const getNavItems = () => {
         return siteConfig.navItems.map((item) => {
@@ -57,9 +80,9 @@ export default function Header() {
     const handleLogout = async () => {
         await logoutUser()
     }
-    
+
     return (
-        <Navbar style={{height: layoutConfig.headerHeight}}>
+        <Navbar style={{ height: layoutConfig.headerHeight }}>
             <NavbarBrand>
                 <Link href="/" className="flex gap-1">
                     <Logo />
@@ -85,7 +108,7 @@ export default function Header() {
                         as={Link}
                         href="#"
                         variant="flat"
-                        onPress={() => {setIsLoginOpen(true)}}
+                        onPress={() => { setIsLoginOpen(true) }}
                     >
                         Login
                     </Button>
@@ -96,7 +119,7 @@ export default function Header() {
                         color="primary"
                         href="#"
                         variant="flat"
-                        onPress={() => {setIsRegistrationOpen(true)}}
+                        onPress={() => { setIsRegistrationOpen(true) }}
                     >
                         Sign Up
                     </Button>
@@ -105,11 +128,11 @@ export default function Header() {
 
             <RegistrationModal
                 isOpen={isRegistrationOpen}
-                onClose={() => {setIsRegistrationOpen(false)}}
+                onClose={() => { setIsRegistrationOpen(false) }}
             />
             <LoginModal
                 isOpen={isLoginOpen}
-                onClose={() => {setIsLoginOpen(false)}}
+                onClose={() => { setIsLoginOpen(false) }}
             />
         </Navbar>
     );

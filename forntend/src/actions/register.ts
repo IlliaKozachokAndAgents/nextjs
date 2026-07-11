@@ -1,16 +1,20 @@
-import { loginSchema } from "../schema/zod"
 import { IFormData } from "../types/form-data"
 
 export async function registerUser(formData: IFormData) {
-    if (formData.email !== formData.confirmPassword) {
+    const { email, password, confirmPassword } = formData
+
+
+    if (password !== confirmPassword) {
         return { error: "Passwords does not match!" }
     }
 
-    try {
-        const { email, password } = loginSchema.parse(formData)
+    if (password.length < 6) {
+        return { error: "Passwords must be greater then 6 symbols!" }
+    }
 
+    try {
         var result = await fetch(
-            'http://127.0.0.1:8000/users',
+            'http://127.0.0.1:8000/users/user',
             {
                 "method": "POST",
                 "headers": { "Content-Type": "application/json" },

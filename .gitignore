@@ -8,5 +8,6 @@ tmp
 .env
 .env.local
 .python-version
+__pycache__
 
 /src/generated/prisma

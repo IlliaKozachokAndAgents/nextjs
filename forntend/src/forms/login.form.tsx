@@ -5,7 +5,6 @@ import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import React, { useState } from "react";
 import { loginUser } from "../actions/login";
-import { cookies } from "next/headers";
 
 interface IProps {
     onClose: () => void
@@ -19,9 +18,7 @@ const LoginForm = ({onClose}: IProps) => {
     const handleSubmit =async (e:React.FormEvent) => {
         e.preventDefault()
 
-        const cookieStore = await cookies()
-        const token = await loginUser(formData.email, formData.password)
-        cookieStore.set('session', token, {httpOnly: true})
+        await loginUser(formData.email, formData.password)
         
         console.log('Logged In!')
         onClose()

@@ -1,5 +1,3 @@
-
-
 export async function logoutUser() {
-   // delete jwt from cookie
+   await fetch('http://127.0.0.1:8000/auth/logout', {'method': 'DELETE'})
 }

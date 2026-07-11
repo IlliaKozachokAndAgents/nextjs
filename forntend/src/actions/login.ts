@@ -3,7 +3,7 @@
 export async function loginUser(email: string, password: string) {
     try {
         var result = await fetch(
-            'http://127.0.0.1:8000/token',
+            'http://127.0.0.1:8000/auth/authorize',
             {
                 "method": "POST",
                 "headers": { "Content-Type": "application/x-www-form-urlencoded" },
