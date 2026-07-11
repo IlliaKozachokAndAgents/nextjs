@@ -9,9 +9,8 @@ import { siteConfig } from "../../../config/site.config";
 import { layoutConfig } from "../../../config/layout.config";
 import RegistrationModal from "../modals/registration.modal";
 import LoginModal from "../modals/login.modal";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { logoutUser } from "../../../actions/logout";
-import { isAuthorize } from "../../../actions/get.auth.status";
 
 
 export const Logo = () => {
@@ -30,25 +29,8 @@ export default function Header() {
     const [session, setSession] = useState(null);
     const [status, setStatus] = useState(null);
 
-    useEffect(() => {
-        async function loadUser() {
-            try {
-                var result = await fetch(
-                    'http://127.0.0.1:8000/auth/users/me', { method: "GET", credentials: "include" }
-                )
-                if (result.status == 200) {
-                    setSession(await result.json())
-                    setStatus('Authorized')
-                }
-            } catch (error) {
-            }
-        }
-
-        loadUser()
-    });
-
     console.log('session', session)
-    console.log('status', session)
+    console.log('status', status)
 
     const getNavItems = () => {
         return siteConfig.navItems.map((item) => {
